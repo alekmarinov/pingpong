@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import { Provider, connect } from 'react-redux';
 import { createEpicMiddleware, combineEpics, ofType } from 'redux-observable';
 import { createStore, applyMiddleware } from 'redux';
-import { delay, mapTo } from 'rxjs/operators'
+import { delay, mapTo } from 'rxjs/operators';
 
-const pingPongReducer = (state = {}, action) => action
+const pingPongReducer = (state = {}, action) => action;
 
 const pingPongEpic = (filterType, emitType) => action$ => action$.pipe(
     ofType(filterType),
@@ -22,7 +22,7 @@ const epicMiddleware = createEpicMiddleware();
 const store = createStore(pingPongReducer, { type: 'PING' }, applyMiddleware(epicMiddleware));
 epicMiddleware.run(rootEpic);
 
-const mapStateToProps = (state) => ({...state});
+const mapStateToProps = (state) => state;
 
 const App = connect(mapStateToProps)(props =>
     <h1>{props.type}</h1>
